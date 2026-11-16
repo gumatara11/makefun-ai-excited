@@ -1,15 +1,16 @@
-#!/usr/bin/env python3
-"""Write the entry image to the output directory."""
+"""Copy entry.png byte-for-byte to the output directory."""
+
 import os
 import shutil
-from pathlib import Path
 
-HERE = Path(__file__).resolve().parent
-OUT = Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "out"))
+SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "entry.png")
+
 
 def main():
-    OUT.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(HERE / "entry.png", OUT / "entry.png")
+    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "out")
+    os.makedirs(out_dir, exist_ok=True)
+    shutil.copyfile(SRC, os.path.join(out_dir, "entry.png"))
+
 
 if __name__ == "__main__":
     main()
